@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3653701339f2e2c4f9e06ea776727a71, type: 3}
+  m_Name: Potion_LemondropPerfume
+  m_EditorClassIdentifier: 
+  Name: Lemondrop Essence
+  Description: A concentrated Lemondrop extract that has a wide array of uses, be
+    it to perfume an ambient, yourself or your food!
+  Sprite: {fileID: 0}
+  RequiredIngredients:
+  - config: {fileID: 11400000, guid: 90b5f4754af619f43b3cfe0db52654b6, type: 2}
+    state: 1
+  - config: {fileID: 11400000, guid: 90b5f4754af619f43b3cfe0db52654b6, type: 2}
+    state: 1
+  - config: {fileID: 11400000, guid: 90b5f4754af619f43b3cfe0db52654b6, type: 2}
+    state: 1
+  TimeRequiredInCauldron: 4

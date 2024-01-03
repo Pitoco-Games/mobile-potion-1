@@ -1,24 +1,23 @@
+using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MortarAndPestle : MonoBehaviour
+public class MortarAndPestle : MonoBehaviour, IProductReceiver, IProductContainer
 {
     [SerializeField] private MortarAndPestleTouchTarget touchTarget;
     [SerializeField] private RectTransform areaLimiterRectTransform;
-    [SerializeField] private Button startMiniGameButton;
     [SerializeField] private GameObject popupGameObject;
-    [SerializeField] private int minimumHits = 3;
-    [SerializeField] private int maximumHits = 6;
+    [SerializeField] private DragAndDropController dragAndDropController;
 
     private float areaRadius;
     Vector2 circleCenter;
 
-    private int hitsRequired;
+    private IngredientConfig currentIngredient;
     private int currentHits;
 
     private void Awake()
     {
-        startMiniGameButton.onClick.AddListener(StartMiniGame);
         touchTarget.SubscribeToTouchEvent(RegisterCorrectAction);
 
         SetupPossibleHitPositionParameters();
@@ -32,16 +31,23 @@ public class MortarAndPestle : MonoBehaviour
         circleCenter = areaLimiterRectTransform.position;
     }
 
-    private void StartMiniGame()
+    public bool ReceiveProduct(ProductObject product)
     {
-        SetupRequiredHitsAmount();
-        ShowMiniGamePopup();
-        MoveTargetToNewPosition();
+        if (currentIngredient == null && product.ProductConfig is IngredientConfig config)
+        {
+            currentIngredient = config;
+            StartMiniGame();
+            return true;
+        }
+
+        return false;
     }
 
-    private void SetupRequiredHitsAmount()
+    private void StartMiniGame()
     {
-        hitsRequired = Random.Range(minimumHits, maximumHits + 1);
+        ShowMiniGamePopup();
+        MoveTargetToNewPosition();
+        dragAndDropController.ToggleIsActive();
     }
 
     private void ShowMiniGamePopup()
@@ -79,11 +85,28 @@ public class MortarAndPestle : MonoBehaviour
 
     private bool GameIsFinished()
     {
-        return currentHits > hitsRequired;
+        return currentHits > currentIngredient.requiredMortarAndPestleHits;
     }
 
     private void EndGame()
     {
+        dragAndDropController.ToggleIsActive();
         popupGameObject.SetActive(false);
+    }
+
+    public bool TryTakeProduct(out (ProductConfig, ProductState) productData)
+    {
+        productData = default;
+
+        if (currentIngredient == null)
+        {
+            return false;
+        }
+
+        ProductConfig currConfig = currentIngredient;
+        currentIngredient = null;
+        productData = (currConfig, ProductState.Mashed);
+
+        return true;
     }
 }
