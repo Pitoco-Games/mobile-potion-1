@@ -134,7 +134,6 @@ public class DragAndDropController : MonoBehaviour
             return;
         }
 
-
         // IMPORTANT: here it's supposed to destroy indeed
         ingredientReceiver.ReceiveProduct(productObject);
         DestroyProductInstance();
