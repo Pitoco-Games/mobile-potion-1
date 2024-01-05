@@ -15,10 +15,17 @@ public class PotionConfig : ProductConfig
 }
 
 [Serializable]
-public struct ProductWithState
+public struct ProductWithState: IComparable
 {
     public ProductConfig config;
     public ProductState state;
+
+    public int CompareTo(object obj)
+    {
+        var otherConfig = (ProductWithState)obj;
+
+        return config.Name.CompareTo(otherConfig.config.Name);
+    }
 }
 
 public enum ProductState {Raw, Mashed, Roasted, Extracted, Brewed}
