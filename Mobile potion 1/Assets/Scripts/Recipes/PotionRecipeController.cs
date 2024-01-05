@@ -3,14 +3,16 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PotionRecipeController : MonoBehaviour, IProductReceiver
+public class PotionRecipeController : MonoBehaviour, IProductReceiver, IProductContainer
 {
     [SerializeField] private List<PotionConfig> allPotionConfigs;
     [SerializeField] private PotionConfig unstablePotionConfig;
 
     [SerializeField] private Button makeRecipeButton;
+    [SerializeField] private Image ingredientImage;
 
     private List<ProductWithState> currentIngredientsInPotion = new ();
+    private PotionConfig createdPotion;
 
     private void Awake()
     {
@@ -25,17 +27,22 @@ public class PotionRecipeController : MonoBehaviour, IProductReceiver
 
     public void CompleteRecipe()
     {
-        PotionConfig potionMade;
-        if (!TryGetPotionThatHasSameIngredients(out potionMade))
+        if(currentIngredientsInPotion.Count == 0)
         {
-            potionMade = unstablePotionConfig;
+            return;
+        }
+
+        if (!TryGetPotionThatHasSameIngredients(out createdPotion))
+        {
+            createdPotion = unstablePotionConfig;
         }
 
         currentIngredientsInPotion.Clear();
 
-        Debug.Log($"### Made Potion: {potionMade.Name}");
-
-        // Instantiate potion object
+        Debug.Log($"### Made Potion: {createdPotion.Name}");
+        makeRecipeButton.gameObject.SetActive(false);
+        ingredientImage.gameObject.SetActive(true);
+        ingredientImage.sprite = createdPotion.Sprite;
     }
 
     private bool TryGetPotionThatHasSameIngredients(out PotionConfig potionFound)
@@ -57,7 +64,27 @@ public class PotionRecipeController : MonoBehaviour, IProductReceiver
 
     public bool ReceiveProduct(ProductObject product)
     {
+        makeRecipeButton.gameObject.SetActive(true);
+
+        Debug.Log($"Received {product.ProductConfig.Name}");
         currentIngredientsInPotion.Add(new ProductWithState{config = product.ProductConfig as IngredientConfig, state = product.State});
+        return true;
+    }
+
+    public bool TryTakeProduct(out (ProductConfig, ProductState) productData)
+    {
+        productData = default;
+
+        if (createdPotion == null)
+        {
+            return false;
+        }
+
+        PotionConfig currConfig = createdPotion;
+        createdPotion = null;
+        productData = (currConfig, ProductState.Brewed);
+        ingredientImage.gameObject.SetActive(false);
+
         return true;
     }
 }

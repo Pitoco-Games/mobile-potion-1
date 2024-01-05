@@ -9,6 +9,7 @@ public class MortarAndPestle : MonoBehaviour, IProductReceiver, IProductContaine
     [SerializeField] private RectTransform areaLimiterRectTransform;
     [SerializeField] private GameObject popupGameObject;
     [SerializeField] private DragAndDropController dragAndDropController;
+    [SerializeField] private Image ingredientImage;
 
     private float areaRadius;
     Vector2 circleCenter;
@@ -33,7 +34,7 @@ public class MortarAndPestle : MonoBehaviour, IProductReceiver, IProductContaine
 
     public bool ReceiveProduct(ProductObject product)
     {
-        if (currentIngredient == null && product.ProductConfig is IngredientConfig config)
+        if (currentIngredient == null && product.State == ProductState.Raw && product.ProductConfig is IngredientConfig config)
         {
             currentIngredient = config;
             StartMiniGame();
@@ -92,6 +93,8 @@ public class MortarAndPestle : MonoBehaviour, IProductReceiver, IProductContaine
     {
         dragAndDropController.ToggleIsActive();
         popupGameObject.SetActive(false);
+        ingredientImage.sprite = currentIngredient.Sprite;
+        ingredientImage.gameObject.SetActive(true);
     }
 
     public bool TryTakeProduct(out (ProductConfig, ProductState) productData)
@@ -106,6 +109,7 @@ public class MortarAndPestle : MonoBehaviour, IProductReceiver, IProductContaine
         ProductConfig currConfig = currentIngredient;
         currentIngredient = null;
         productData = (currConfig, ProductState.Mashed);
+        ingredientImage.gameObject.SetActive(false);
 
         return true;
     }
