@@ -16,5 +16,6 @@ MonoBehaviour:
   Description: The recipe that created this potion is unknown and untested, so it's
     effects can be unstable. It's not good practice to sell a potion you don't know
     the effects of!
+  Sprite: {fileID: 21300000, guid: 16a264d09f6913a49ae8ecbdda9ef65c, type: 3}
   RequiredIngredients: []
   TimeRequiredInCauldron: 0

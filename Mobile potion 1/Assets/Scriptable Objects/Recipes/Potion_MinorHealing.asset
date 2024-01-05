@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: Minor Healing
   Description: A basic health-boosting potion. Helps with minor ailments, such as
     general light aches, cuts and bruises.
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: 62a25af5e10f35c45a232f73c1f75ccb, type: 3}
   RequiredIngredients:
   - config: {fileID: 11400000, guid: 3f0abb9d2c2f8714a9594a2bed0f4a8c, type: 2}
     state: 1

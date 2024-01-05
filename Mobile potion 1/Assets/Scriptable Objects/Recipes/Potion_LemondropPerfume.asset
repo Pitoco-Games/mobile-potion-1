@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: Lemondrop Essence
   Description: A concentrated Lemondrop extract that has a wide array of uses, be
     it to perfume an ambient, yourself or your food!
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: 94395bea2da51624193eabd801fc221e, type: 3}
   RequiredIngredients:
   - config: {fileID: 11400000, guid: 90b5f4754af619f43b3cfe0db52654b6, type: 2}
     state: 1

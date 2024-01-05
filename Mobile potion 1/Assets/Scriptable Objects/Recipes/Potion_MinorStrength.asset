@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: Minor Strength
   Description: A simple strength-boosting potion. Mainly sought after by your everyday
     worker that just needs a small boost to help things along.
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: dfbd748d114fbd44bbb01e750b805adb, type: 3}
   RequiredIngredients:
   - config: {fileID: 11400000, guid: 90b5f4754af619f43b3cfe0db52654b6, type: 2}
     state: 1
