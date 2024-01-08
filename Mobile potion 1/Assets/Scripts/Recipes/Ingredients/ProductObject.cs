@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,18 +9,16 @@ public class ProductObject : MonoBehaviour
     [SerializeField] private Image productImage;
     [SerializeField] private Rigidbody2D rigidbody;
 
-    public ProductConfig ProductConfig => product;
-    public ProductState State => state;
+    public ProductConfig ProductConfig => productAndState.config;
+    public ProductState State => productAndState.state;
+    public ProductWithState ProductAndState => productAndState;
 
-    private ProductState state;
-    private ProductConfig product;
-    private Action onBeginDragCallback;
-    private Collider2D latestInteractedCollider;
+    private ProductWithState productAndState;
 
-    public void Setup(ProductConfig product, ProductState state)
+    public void Setup(ProductWithState productData)
     {
-        this.product = product;
-        productImage.sprite = product.Sprite;
-        this.state = state;
+        productAndState = productData;
+        
+        productImage.sprite = productAndState.config.Sprite;
     }
 }

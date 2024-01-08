@@ -32,9 +32,9 @@ public class MortarAndPestle : MonoBehaviour, IProductReceiver, IProductContaine
         circleCenter = areaLimiterRectTransform.position;
     }
 
-    public bool ReceiveProduct(ProductObject product)
+    public bool ReceiveProduct(ProductWithState product)
     {
-        if (currentIngredient == null && product.State == ProductState.Raw && product.ProductConfig is IngredientConfig config)
+        if (currentIngredient == null && product.state == ProductState.Raw && product.config is IngredientConfig config)
         {
             currentIngredient = config;
             StartMiniGame();
@@ -97,7 +97,7 @@ public class MortarAndPestle : MonoBehaviour, IProductReceiver, IProductContaine
         ingredientImage.gameObject.SetActive(true);
     }
 
-    public bool TryTakeProduct(out (ProductConfig, ProductState) productData)
+    public bool TryTakeProduct(out ProductWithState productData)
     {
         productData = default;
 
@@ -108,7 +108,7 @@ public class MortarAndPestle : MonoBehaviour, IProductReceiver, IProductContaine
 
         ProductConfig currConfig = currentIngredient;
         currentIngredient = null;
-        productData = (currConfig, ProductState.Mashed);
+        productData = new ProductWithState { config = currConfig, state = ProductState.Mashed };
         ingredientImage.gameObject.SetActive(false);
 
         return true;

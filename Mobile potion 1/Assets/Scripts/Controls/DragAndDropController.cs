@@ -79,7 +79,7 @@ public class DragAndDropController : MonoBehaviour
             }
         }
 
-        bool gotProduct = TryGetProductFromContainer(out (ProductConfig, ProductState) productData);
+        bool gotProduct = TryGetProductFromContainer(out ProductWithState productData);
 
         if (!gotProduct)
         {
@@ -87,13 +87,13 @@ public class DragAndDropController : MonoBehaviour
         }
 
         productObject = Instantiate(productObjectPrefab, Input.mousePosition, Quaternion.identity, canvasTransform);
-        productObject.Setup(productData.Item1, productData.Item2);
+        productObject.Setup(productData);
         productRigidbody = productObject.GetComponent<Rigidbody2D>();
 
         isDragging = true;
     }
 
-    private bool TryGetProductFromContainer(out (ProductConfig, ProductState) productData)
+    private bool TryGetProductFromContainer(out ProductWithState productData)
     {
         productData = default;
 
@@ -135,7 +135,7 @@ public class DragAndDropController : MonoBehaviour
         }
 
         // IMPORTANT: here it's supposed to destroy indeed
-        ingredientReceiver.ReceiveProduct(productObject);
+        ingredientReceiver.ReceiveProduct(productObject.ProductAndState);
         DestroyProductInstance();
     }
 

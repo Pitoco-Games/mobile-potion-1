@@ -62,16 +62,16 @@ public class PotionRecipeController : MonoBehaviour, IProductReceiver, IProductC
         return false;
     }
 
-    public bool ReceiveProduct(ProductObject product)
+    public bool ReceiveProduct(ProductWithState productData)
     {
         makeRecipeButton.gameObject.SetActive(true);
 
-        Debug.Log($"Received {product.ProductConfig.Name}");
-        currentIngredientsInPotion.Add(new ProductWithState{config = product.ProductConfig as IngredientConfig, state = product.State});
+        Debug.Log($"Received {productData.config.Name}");
+        currentIngredientsInPotion.Add(new ProductWithState{config = productData.config as IngredientConfig, state = productData.state});
         return true;
     }
 
-    public bool TryTakeProduct(out (ProductConfig, ProductState) productData)
+    public bool TryTakeProduct(out ProductWithState productData)
     {
         productData = default;
 
@@ -82,7 +82,7 @@ public class PotionRecipeController : MonoBehaviour, IProductReceiver, IProductC
 
         PotionConfig currConfig = createdPotion;
         createdPotion = null;
-        productData = (currConfig, ProductState.Brewed);
+        productData = new ProductWithState { config = currConfig, state = ProductState.Brewed };
         ingredientImage.gameObject.SetActive(false);
 
         return true;

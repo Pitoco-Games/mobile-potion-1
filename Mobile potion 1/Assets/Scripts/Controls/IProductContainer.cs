@@ -1,4 +1,4 @@
 public interface IProductContainer
 {
-    bool TryTakeProduct(out (ProductConfig, ProductState) productData);
+    bool TryTakeProduct(out ProductWithState productData);
 }
