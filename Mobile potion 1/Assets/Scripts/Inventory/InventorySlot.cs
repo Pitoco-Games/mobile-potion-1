@@ -14,9 +14,9 @@ public class InventorySlot : MonoBehaviour, IProductContainer
     }
 
 
-    public bool TryTakeProduct(out (ProductConfig, ProductState) productData)
+    public bool TryTakeProduct(out ProductWithState productData)
     {
-        productData = (ingredient, ProductState.Raw);
+        productData = new ProductWithState { config = ingredient, state = ProductState.Raw };
         return true;
     }
 }
