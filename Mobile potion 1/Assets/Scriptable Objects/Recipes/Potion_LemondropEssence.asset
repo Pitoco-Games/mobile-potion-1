@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3653701339f2e2c4f9e06ea776727a71, type: 3}
-  m_Name: Potion_LemondropPerfume
+  m_Name: Potion_LemondropEssence
   m_EditorClassIdentifier: 
   Name: Lemondrop Essence
   Description: A concentrated Lemondrop extract that has a wide array of uses, be
