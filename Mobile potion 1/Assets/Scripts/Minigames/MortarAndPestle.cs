@@ -19,14 +19,12 @@ public class MortarAndPestle : MonoBehaviour, IProductReceiver, IProductContaine
 
     private void Awake()
     {
-        touchTarget.SubscribeToTouchEvent(RegisterCorrectAction);
-
-        SetupPossibleHitPositionParameters();
+        touchTarget.SubscribeToTouchEvent(RegisterCorrectAction);   
     }
 
     private void SetupPossibleHitPositionParameters()
     {
-        Vector2 rectSize = areaLimiterRectTransform.rect.size;
+        Vector2 rectSize = areaLimiterRectTransform.sizeDelta;
         areaRadius = Mathf.Min(rectSize.x, rectSize.y) / 2f;
 
         circleCenter = areaLimiterRectTransform.position;
@@ -46,6 +44,7 @@ public class MortarAndPestle : MonoBehaviour, IProductReceiver, IProductContaine
 
     private void StartMiniGame()
     {
+        SetupPossibleHitPositionParameters();
         ShowMiniGamePopup();
         MoveTargetToNewPosition();
         dragAndDropController.ToggleIsActive();

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DragAndDropController : MonoBehaviour
@@ -97,20 +98,32 @@ public class DragAndDropController : MonoBehaviour
     {
         productData = default;
 
-        Collider2D hitCollider = Physics2D.OverlapCircle(Input.mousePosition, overlapCircleRadius);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(Input.mousePosition, overlapCircleRadius);
 
-        if (hitCollider == null)
+        if (hitColliders.Length == 0)
         {
             return false;
         }
 
-        var productContainer = hitCollider.GetComponent<IProductContainer>();
+        IProductContainer productContainer = null;
 
-        if (productContainer == null)
+        for (int i = 0 ; i < hitColliders.Length ; i++)
         {
-            return false;
-        }
+            Collider2D collider = hitColliders[i];
 
+            productContainer = collider.GetComponent<IProductContainer>();
+
+            if (productContainer != null)
+            {
+                break;
+            }
+
+            if(i + 1 == hitColliders.Length)
+            {
+                return false;
+            }
+        }
+        
         return productContainer.TryTakeProduct(out productData);
     }
 
