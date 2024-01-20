@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,9 +20,21 @@ public class ProductBasketSlot : MonoBehaviour, IProductContainer, IProductRecei
         return true;
     }
 
-    public bool TryTakeProduct(out ProductWithState productData)
+    private void OnProductReleasedByDrag(bool wentToNewProductReceiver)
+    {
+        if (wentToNewProductReceiver)
+        {
+            containedProduct.config = null;
+            return;
+        }
+
+        productImage.gameObject.SetActive(true);
+    }
+
+    public bool TryTakeProduct(out ProductWithState productData, out Action<bool> onProductReleased)
     {
         productData = default;
+        onProductReleased = OnProductReleasedByDrag;
 
         if (containedProduct.config == null)
         {
@@ -29,7 +42,6 @@ public class ProductBasketSlot : MonoBehaviour, IProductContainer, IProductRecei
         }
 
         productData = containedProduct;
-        containedProduct.config = null;
         productImage.gameObject.SetActive(false);
 
         return true;

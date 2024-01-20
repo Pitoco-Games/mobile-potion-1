@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class PotionRecipeController : MonoBehaviour, IProductReceiver, IProductContainer
 {
@@ -9,7 +11,7 @@ public class PotionRecipeController : MonoBehaviour, IProductReceiver, IProductC
     [SerializeField] private PotionConfig unstablePotionConfig;
 
     [SerializeField] private Button makeRecipeButton;
-    [SerializeField] private Image ingredientImage;
+    [SerializeField] private Image potionImage;
 
     private List<ProductWithState> currentIngredientsInPotion = new ();
     private PotionConfig createdPotion;
@@ -41,8 +43,8 @@ public class PotionRecipeController : MonoBehaviour, IProductReceiver, IProductC
 
         Debug.Log($"### Made Potion: {createdPotion.Name}");
         makeRecipeButton.gameObject.SetActive(false);
-        ingredientImage.gameObject.SetActive(true);
-        ingredientImage.sprite = createdPotion.Sprite;
+        potionImage.gameObject.SetActive(true);
+        potionImage.sprite = createdPotion.Sprite;
     }
 
     private bool TryGetPotionThatHasSameIngredients(out PotionConfig potionFound)
@@ -70,10 +72,21 @@ public class PotionRecipeController : MonoBehaviour, IProductReceiver, IProductC
         currentIngredientsInPotion.Add(new ProductWithState{config = productData.config as IngredientConfig, state = productData.state});
         return true;
     }
+    private void OnProductReleasedByDrag(bool wentToNewProductReceiver)
+    {
+        if (wentToNewProductReceiver)
+        {
+            createdPotion = null;
+            return;
+        }
 
-    public bool TryTakeProduct(out ProductWithState productData)
+        potionImage.gameObject.SetActive(true);
+    }
+
+    public bool TryTakeProduct(out ProductWithState productData, out Action<bool> onProductReleased)
     {
         productData = default;
+        onProductReleased = OnProductReleasedByDrag;
 
         if (createdPotion == null)
         {
@@ -81,9 +94,8 @@ public class PotionRecipeController : MonoBehaviour, IProductReceiver, IProductC
         }
 
         PotionConfig currConfig = createdPotion;
-        createdPotion = null;
         productData = new ProductWithState { config = currConfig, state = ProductState.Brewed };
-        ingredientImage.gameObject.SetActive(false);
+        potionImage.gameObject.SetActive(false);
 
         return true;
     }

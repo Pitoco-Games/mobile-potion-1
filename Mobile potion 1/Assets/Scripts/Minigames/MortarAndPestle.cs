@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class MortarAndPestle : MonoBehaviour, IProductReceiver, IProductContainer
 {
@@ -96,9 +96,21 @@ public class MortarAndPestle : MonoBehaviour, IProductReceiver, IProductContaine
         ingredientImage.gameObject.SetActive(true);
     }
 
-    public bool TryTakeProduct(out ProductWithState productData)
+    private void OnProductReleasedByDrag(bool wentToNewProductReceiver)
+    {
+        if(wentToNewProductReceiver)
+        {
+            currentIngredient = null;
+            return;
+        }
+
+        ingredientImage.gameObject.SetActive(true);
+    }
+
+    public bool TryTakeProduct(out ProductWithState productData, out Action<bool> onProductReleased)
     {
         productData = default;
+        onProductReleased = OnProductReleasedByDrag;
 
         if (currentIngredient == null)
         {
@@ -106,7 +118,6 @@ public class MortarAndPestle : MonoBehaviour, IProductReceiver, IProductContaine
         }
 
         ProductConfig currConfig = currentIngredient;
-        currentIngredient = null;
         productData = new ProductWithState { config = currConfig, state = ProductState.Mashed };
         ingredientImage.gameObject.SetActive(false);
 

@@ -12,6 +12,8 @@ public class DragAndDropController : MonoBehaviour
     [SerializeField] private ProductObject productObjectPrefab;
     [SerializeField] private Transform canvasTransform;
 
+    public event Action<bool> OnProductReleased;
+
     private Coroutine detectDragCoroutine;
     private bool isDragging;
     private ProductObject productObject;
@@ -124,31 +126,31 @@ public class DragAndDropController : MonoBehaviour
             }
         }
         
-        return productContainer.TryTakeProduct(out productData);
+        return productContainer.TryTakeProduct(out productData, out OnProductReleased);
     }
 
     public void OnReleaseProduct()
     {
         Collider2D hitCollider = Physics2D.OverlapCircle(Input.mousePosition, overlapCircleRadius);
 
-        // TODO: find way for product still be available when releasing it on top of nothing
         if (hitCollider == null)
         {
             DestroyProductInstance();
+            OnProductReleased?.Invoke(false);
             return;
         }
 
         var ingredientReceiver = hitCollider.GetComponent<IProductReceiver>();
 
-        // TODO: find way for product still be available when releasing it on top of nothing
         if (ingredientReceiver == null)
         {
             DestroyProductInstance();
+            OnProductReleased?.Invoke(false);
             return;
         }
 
-        // IMPORTANT: here it's supposed to destroy indeed
         ingredientReceiver.ReceiveProduct(productObject.ProductAndState);
+        OnProductReleased?.Invoke(true);
         DestroyProductInstance();
     }
 
