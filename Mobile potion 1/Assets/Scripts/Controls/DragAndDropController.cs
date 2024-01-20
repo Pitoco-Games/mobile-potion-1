@@ -17,7 +17,7 @@ public class DragAndDropController : MonoBehaviour
     private Coroutine detectDragCoroutine;
     private bool isDragging;
     private ProductObject productObject;
-    private Rigidbody2D productRigidbody;
+    private Transform productTransform;
     private bool isActive = true;
 
     private void Update()
@@ -31,9 +31,9 @@ public class DragAndDropController : MonoBehaviour
         {
             detectDragCoroutine = StartCoroutine(DetectDrag());
         }
-        else if (isDragging)
+        if (isDragging)
         {
-            productRigidbody.MovePosition(Input.mousePosition);
+            productTransform.SetPositionAndRotation(Input.mousePosition, Quaternion.identity);
         }
 
         if (Input.GetButtonUp("Touch"))
@@ -75,7 +75,6 @@ public class DragAndDropController : MonoBehaviour
         {
             yield return null;
 
-            //TODO: check if needs to change required distance on different device screen sizes
             if (startingPosition.magnitude > distanceToDetectDrag)
             {
                 break;
@@ -91,7 +90,7 @@ public class DragAndDropController : MonoBehaviour
 
         productObject = Instantiate(productObjectPrefab, Input.mousePosition, Quaternion.identity, canvasTransform);
         productObject.Setup(productData);
-        productRigidbody = productObject.GetComponent<Rigidbody2D>();
+        productTransform = productObject.transform;
 
         isDragging = true;
     }

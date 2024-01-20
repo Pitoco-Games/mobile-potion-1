@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7724795328958228813}
   - component: {fileID: 905500296567966751}
   - component: {fileID: 7567836776955896981}
-  - component: {fileID: 5772793918707503078}
   m_Layer: 5
   m_Name: ProductObject
   m_TagString: Untagged
@@ -60,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   productImage: {fileID: 7567836776955896981}
-  rigidbody: {fileID: 5772793918707503078}
+  rigidbody: {fileID: 0}
 --- !u!114 &7567836776955896981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,30 +90,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!50 &5772793918707503078
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7724795328958228814}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0

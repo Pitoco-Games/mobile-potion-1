@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class ProductObject : MonoBehaviour
 {
     [SerializeField] private Image productImage;
-    [SerializeField] private Rigidbody2D rigidbody;
 
     public ProductConfig ProductConfig => productAndState.config;
     public ProductState State => productAndState.state;
