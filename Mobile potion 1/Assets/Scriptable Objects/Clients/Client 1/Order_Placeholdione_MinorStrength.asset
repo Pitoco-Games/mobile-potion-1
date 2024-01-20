@@ -15,4 +15,4 @@ MonoBehaviour:
   dialog: I've just gotten a bit more land for our  crops, but me and my family are
     not being able handle all the extra work! We need an extra oomph while we find
     someone to help us tend to the fields.
-  requiredPotion: {fileID: 11400000, guid: 9b78bd17cf8050942bed3c4981c4f323, type: 2}
+  requiredPotion: {fileID: 11400000, guid: 8305327c7b97aec4fac580e73beffa39, type: 2}
