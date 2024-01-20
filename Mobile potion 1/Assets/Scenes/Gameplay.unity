@@ -2101,7 +2101,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8305327c7b97aec4fac580e73beffa39, type: 2}
   unstablePotionConfig: {fileID: 11400000, guid: 45c9b3b3e64296a4ea96d6eff852aa70, type: 2}
   makeRecipeButton: {fileID: 787723842}
-  ingredientImage: {fileID: 2041442361}
+  potionImage: {fileID: 2041442361}
 --- !u!61 &1545296699
 BoxCollider2D:
   m_ObjectHideFlags: 0
