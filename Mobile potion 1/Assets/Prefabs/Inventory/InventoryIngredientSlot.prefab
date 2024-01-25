@@ -211,6 +211,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ingredientImage: {fileID: 488234105206747586}
+  takeAnimationIntensity: 0.4
+  takeAnimationDuration: 0.3
 --- !u!61 &4736992583027598337
 BoxCollider2D:
   m_ObjectHideFlags: 0

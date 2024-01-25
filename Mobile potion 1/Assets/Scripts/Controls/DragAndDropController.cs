@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ public class DragAndDropController : MonoBehaviour
     [SerializeField] private float overlapCircleRadius = 0.5f;
     [SerializeField] private ProductObject productObjectPrefab;
     [SerializeField] private Transform canvasTransform;
+    [SerializeField] private float productMoveAnimationDuration = 0.3f;
 
     public event Action<bool> OnProductReleased;
 
@@ -19,6 +21,7 @@ public class DragAndDropController : MonoBehaviour
     private ProductObject productObject;
     private Transform productTransform;
     private bool isActive = true;
+    private Transform productOriginalPosTransform;
 
     private void Update()
     {
@@ -107,8 +110,9 @@ public class DragAndDropController : MonoBehaviour
         }
 
         IProductContainer productContainer = null;
-
-        for (int i = 0 ; i < hitColliders.Length ; i++)
+        
+        int i = 0;
+        for (; i < hitColliders.Length ; i++)
         {
             Collider2D collider = hitColliders[i];
 
@@ -124,7 +128,8 @@ public class DragAndDropController : MonoBehaviour
                 return false;
             }
         }
-        
+
+        productOriginalPosTransform = hitColliders[i].transform;
         return productContainer.TryTakeProduct(out productData, out OnProductReleased);
     }
 
@@ -134,8 +139,7 @@ public class DragAndDropController : MonoBehaviour
 
         if (hitCollider == null)
         {
-            DestroyProductInstance();
-            OnProductReleased?.Invoke(false);
+            MoveProductToOriginalPosAndDestroy();
             return;
         }
 
@@ -143,14 +147,23 @@ public class DragAndDropController : MonoBehaviour
 
         if (ingredientReceiver == null)
         {
-            DestroyProductInstance();
-            OnProductReleased?.Invoke(false);
+            MoveProductToOriginalPosAndDestroy();
             return;
         }
 
         ingredientReceiver.ReceiveProduct(productObject.ProductAndState);
         OnProductReleased?.Invoke(true);
         DestroyProductInstance();
+    }
+
+    private void MoveProductToOriginalPosAndDestroy()
+    {
+        productObject.transform.DOMove(productOriginalPosTransform.position, productMoveAnimationDuration).onComplete += () =>
+        {
+            OnProductReleased?.Invoke(false);
+            DestroyProductInstance();
+        };
+        
     }
 
     private void DestroyProductInstance()
