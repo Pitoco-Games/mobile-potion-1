@@ -11,13 +11,17 @@ public class MortarAndPestle : MonoBehaviour, IProductReceiver, IProductContaine
     [SerializeField] private DragAndDropController dragAndDropController;
     [SerializeField] private Image ingredientImage;
 
+    [SerializeField] private MortarAndPestleMinigame minigamePrefab;
+    [SerializeField] private Transform minigameParent;
+    [SerializeField] private CanvasGroup canvasGroup;
+
     private float areaRadius;
     Vector2 circleCenter;
 
     private IngredientConfig currentIngredient;
     private int currentHits;
 
-    private void Awake()
+    /*private void Awake()
     {
         touchTarget.SubscribeToTouchEvent(RegisterCorrectAction);   
     }
@@ -28,26 +32,30 @@ public class MortarAndPestle : MonoBehaviour, IProductReceiver, IProductContaine
         areaRadius = Mathf.Min(rectSize.x, rectSize.y) / 2f;
 
         circleCenter = areaLimiterRectTransform.position;
-    }
+    }*/
 
     public bool ReceiveProduct(ProductWithState product)
     {
         if (currentIngredient == null && product.state == ProductState.Raw && product.config is IngredientConfig config)
         {
             currentIngredient = config;
-            StartMiniGame();
+            MortarAndPestleMinigame minigame = Instantiate(minigamePrefab, minigameParent);
+            minigame.StartMinigame(currentIngredient, OnGameEnded);
+            canvasGroup.alpha = 0f;
+
+            dragAndDropController.ToggleIsActive();
+
             return true;
         }
 
         return false;
     }
 
-    private void StartMiniGame()
+    /*private void StartMiniGame()
     {
         SetupPossibleHitPositionParameters();
         ShowMiniGamePopup();
         MoveTargetToNewPosition();
-        dragAndDropController.ToggleIsActive();
     }
 
     private void ShowMiniGamePopup()
@@ -76,7 +84,7 @@ public class MortarAndPestle : MonoBehaviour, IProductReceiver, IProductContaine
         {
             currentHits = 0;
 
-            EndGame();
+            OnGameEnded();
             return;
         }
 
@@ -85,15 +93,17 @@ public class MortarAndPestle : MonoBehaviour, IProductReceiver, IProductContaine
 
     private bool GameIsFinished()
     {
-        return currentHits > currentIngredient.requiredMortarAndPestleHits;
+        return currentHits > currentIngredient.requiredMortarAndPestleStages;
     }
+    */
 
-    private void EndGame()
+    private void OnGameEnded()
     {
         dragAndDropController.ToggleIsActive();
         popupGameObject.SetActive(false);
         ingredientImage.sprite = currentIngredient.Sprite;
         ingredientImage.gameObject.SetActive(true);
+        canvasGroup.alpha = 1f;
     }
 
     private void OnProductReleasedByDrag(bool wentToNewProductReceiver)

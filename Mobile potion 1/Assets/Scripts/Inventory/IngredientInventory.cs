@@ -11,6 +11,7 @@ public class IngredientInventory : MonoBehaviour
     [SerializeField] private Button OpenAndCloseButton;
     [SerializeField] private RectTransform inventoryParentTransform;
     [SerializeField] private float openAndCloseAnimationDuration = 0.5f;
+    [SerializeField] private Ease animationEase;
 
     private bool isOpen = false;
     private float inventoryClosedXPosition;
@@ -39,6 +40,6 @@ public class IngredientInventory : MonoBehaviour
 
         positionToAnimateTo = isOpen ? 0 : inventoryClosedXPosition;
 
-        inventoryParentTransform.DOAnchorPosX(positionToAnimateTo, openAndCloseAnimationDuration);
+        inventoryParentTransform.DOAnchorPosX(positionToAnimateTo, openAndCloseAnimationDuration).SetEase(animationEase);
     }
 }

@@ -400,3 +400,4 @@ MonoBehaviour:
   OpenAndCloseButton: {fileID: 5314581096307872498}
   inventoryParentTransform: {fileID: 1000649160742903309}
   openAndCloseAnimationDuration: 0.5
+  animationEase: 30

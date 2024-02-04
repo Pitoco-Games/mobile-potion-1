@@ -17,4 +17,6 @@ MonoBehaviour:
     with a potent strength enhancer! It's extremelly bitter, so it's important to
     pair it with something more pleasant.
   Sprite: {fileID: 21300000, guid: 1afb6a5591a0afb41be1de07dd33b84b, type: 3}
-  requiredMortarAndPestleHits: 6
+  requiredMortarAndPestleStages: 4
+  mashedProgressSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  fullyMashedSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}

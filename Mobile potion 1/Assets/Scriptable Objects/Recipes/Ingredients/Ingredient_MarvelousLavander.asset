@@ -16,4 +16,6 @@ MonoBehaviour:
   Description: A very good smelling flower that has many health-boosting nutrients
     in it's tiny petals.
   Sprite: {fileID: 21300000, guid: 7d3f59fa11f613c41b95020f342ad5dc, type: 3}
-  requiredMortarAndPestleHits: 3
+  requiredMortarAndPestleStages: 3
+  mashedProgressSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  fullyMashedSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}

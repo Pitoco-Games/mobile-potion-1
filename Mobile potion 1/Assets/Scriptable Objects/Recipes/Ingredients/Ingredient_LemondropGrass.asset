@@ -16,4 +16,6 @@ MonoBehaviour:
   Description: A plain-looking grass that releases a sweet and citric liquid when
     mashed. Mostly used for fragrances and to counteract bad tastes in a potion.
   Sprite: {fileID: 21300000, guid: dfb26158b7c1c6241ad1f87000a1b2a7, type: 3}
-  requiredMortarAndPestleHits: 2
+  requiredMortarAndPestleStages: 2
+  mashedProgressSprite: {fileID: 21300000, guid: 31bf91dbe1e121b4e8739b0da100269d, type: 3}
+  fullyMashedSprite: {fileID: 21300000, guid: 4799b1e07f212cb48b605fb3c17926bb, type: 3}

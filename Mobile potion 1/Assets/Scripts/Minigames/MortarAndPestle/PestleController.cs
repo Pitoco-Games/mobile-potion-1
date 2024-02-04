@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,12 +11,24 @@ public class PestleController : MonoBehaviour
     [SerializeField] private Ease inEase;
     [SerializeField] private Ease outEase;
 
+    public event Action OnIngredientCollision;
+
     private Vector2 originalPos;
     private bool isMoving = false;
 
     private void Awake()
     {
         originalPos = transform.position;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        var ingredient = collision.gameObject.GetComponent<MortarAndPestleIngredient>();
+
+        if (ingredient != null && ingredient.CanDetectCollisions)
+        {
+            OnIngredientCollision?.Invoke();
+        }
     }
 
     public void MoveToPositionAndReturn(Vector2 position)
