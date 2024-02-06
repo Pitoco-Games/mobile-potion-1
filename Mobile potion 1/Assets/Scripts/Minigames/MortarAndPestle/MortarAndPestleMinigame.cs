@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ public class MortarAndPestleMinigame : MonoBehaviour
     [SerializeField] private MortarAndPestleIngredient ingredientPrefab;
     [SerializeField] private Transform ingredientSpawnTransform;
     [SerializeField] private IngredientConfig selectedIngredientConfig;
+    [SerializeField] private SpriteRenderer frontSpriteRenderer;
 
     public event Action OnGameEnded;
 
@@ -36,6 +38,8 @@ public class MortarAndPestleMinigame : MonoBehaviour
             requiredTotalCount += (int)Mathf.Pow(2, i);
         }
 
+        frontSpriteRenderer.DOFade(0, 0.5f).SetEase(Ease.InCubic);
+
         selectedIngredientConfig = ingredientConfig;
         MortarAndPestleIngredient ingredient = Instantiate(ingredientPrefab, ingredientSpawnTransform.position, Quaternion.identity);
 
@@ -54,9 +58,11 @@ public class MortarAndPestleMinigame : MonoBehaviour
 
     private void EndGame()
     {
-        OnGameEnded?.Invoke();
-
-        Destroy(gameObject);
+        frontSpriteRenderer.DOFade(1, 0.5f).SetEase(Ease.InCubic).onComplete += () => 
+        {
+            OnGameEnded?.Invoke();
+            Destroy(gameObject);
+        };
     }
 
 
