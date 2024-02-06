@@ -11,29 +11,21 @@ public class PotionRecipeController : MonoBehaviour, IProductReceiver, IProductC
     [SerializeField] private PotionConfig unstablePotionConfig;
 
     [SerializeField] private Button makeRecipeButton;
+    [SerializeField] private CauldronMinigame minigamePrefab;
     [SerializeField] private Image potionImage;
+    [SerializeField] private Transform minigameParent;
+    [SerializeField] private GameObject canvasObject;
 
     private List<ProductWithState> currentIngredientsInPotion = new ();
     private PotionConfig createdPotion;
 
     private void Awake()
     {
-        makeRecipeButton.onClick.AddListener(CompleteRecipe);
+        makeRecipeButton.onClick.AddListener(StartMinigame);
     }
 
-    //TODO: remove placeholder
-    public PotionConfig GetRandomPotionConfig()
+    private void StartMinigame()
     {
-        return allPotionConfigs[Random.Range(0, allPotionConfigs.Count)];
-    }
-
-    public void CompleteRecipe()
-    {
-        if(currentIngredientsInPotion.Count == 0)
-        {
-            return;
-        }
-
         if (!TryGetPotionThatHasSameIngredients(out createdPotion))
         {
             createdPotion = unstablePotionConfig;
@@ -41,8 +33,16 @@ public class PotionRecipeController : MonoBehaviour, IProductReceiver, IProductC
 
         currentIngredientsInPotion.Clear();
 
-        Debug.Log($"### Made Potion: {createdPotion.Name}");
         makeRecipeButton.gameObject.SetActive(false);
+        canvasObject.SetActive(false);
+
+        CauldronMinigame minigame = Instantiate(minigamePrefab, minigameParent);
+        minigame.StartMinigame(createdPotion, CompleteRecipe);
+    }
+
+    public void CompleteRecipe()
+    {
+        canvasObject.SetActive(true);
         potionImage.gameObject.SetActive(true);
         potionImage.sprite = createdPotion.Sprite;
     }
