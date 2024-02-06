@@ -22,3 +22,4 @@ MonoBehaviour:
   - config: {fileID: 11400000, guid: 3f0abb9d2c2f8714a9594a2bed0f4a8c, type: 2}
     state: 1
   TimeRequiredInCauldron: 3
+  cauldronDrawingPatternPrefab: {fileID: 7419575165201466270, guid: f2ac77e1a1ed1994f9da6cf58a5075cf, type: 3}

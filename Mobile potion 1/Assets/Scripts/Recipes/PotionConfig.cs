@@ -7,6 +7,7 @@ public class PotionConfig : ProductConfig
 {
     public List<ProductWithState> RequiredIngredients;
     public float TimeRequiredInCauldron;
+    public CauldronDrawingDetectionPattern cauldronDrawingPatternPrefab;
 
     public void SortIngredientsList()
     {
