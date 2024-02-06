@@ -857,7 +857,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.79622644, g: 0.75548553, b: 0.5333215, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2149,7 +2149,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8305327c7b97aec4fac580e73beffa39, type: 2}
   unstablePotionConfig: {fileID: 11400000, guid: 45c9b3b3e64296a4ea96d6eff852aa70, type: 2}
   makeRecipeButton: {fileID: 787723842}
+  minigamePrefab: {fileID: 2500945747642279669, guid: 7bf3fb0793827bd439b09aa291d28853, type: 3}
   potionImage: {fileID: 2041442361}
+  minigameParent: {fileID: 116535004}
+  canvasObject: {fileID: 876206257}
 --- !u!61 &1545296699
 BoxCollider2D:
   m_ObjectHideFlags: 0
