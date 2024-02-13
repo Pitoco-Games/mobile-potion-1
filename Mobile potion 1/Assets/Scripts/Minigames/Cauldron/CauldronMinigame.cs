@@ -71,6 +71,7 @@ public class CauldronMinigame : MonoBehaviour
     {
         Destroy(drawingDetectionPattern.gameObject);
         Destroy(currentLineDrawer.gameObject);
+
         onMinigameComplete.Invoke();
         Destroy(gameObject);
     }
