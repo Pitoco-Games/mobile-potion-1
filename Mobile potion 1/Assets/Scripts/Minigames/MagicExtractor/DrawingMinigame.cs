@@ -2,26 +2,29 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CauldronMinigame : MonoBehaviour
+public class DrawingMinigame : MonoBehaviour
 {
     [SerializeField] private Transform drawingPatternParent;
     [SerializeField] private float startingEnergy;
     [SerializeField] private float energyDrainSpeed = 5f;
     [SerializeField] private LineDrawer lineDrawerPrefab;
+    [SerializeField] private SpriteRenderer ingredientSpriteRenderer;
 
-    private CauldronDrawingDetectionPattern drawingDetectionPattern;
+    private DrawingDetectionPattern drawingDetectionPattern;
     private bool canDetectTouch;
     private LineDrawer currentLineDrawer;
     private Camera mainCamera;
     private Action onMinigameComplete;
 
-    public void StartMinigame(PotionConfig potionConfig, Action onMinigameComplete)
+    public void StartMinigame(IngredientConfig ingredientConfig, Action onMinigameComplete)
     {
         this.onMinigameComplete = onMinigameComplete;
 
         mainCamera = Camera.main;
 
-        drawingDetectionPattern = Instantiate(potionConfig.cauldronDrawingPatternPrefab, drawingPatternParent);
+        ingredientSpriteRenderer.sprite = ingredientConfig.Sprite;
+
+        drawingDetectionPattern = Instantiate(ingredientConfig.drawingPatternPrefab, drawingPatternParent);
         drawingDetectionPattern.Setup(OnStoppedDrawing);
         canDetectTouch = true;
     }

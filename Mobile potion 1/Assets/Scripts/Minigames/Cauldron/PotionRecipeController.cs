@@ -11,7 +11,7 @@ public class PotionRecipeController : MonoBehaviour, IProductReceiver, IProductC
     [SerializeField] private PotionConfig unstablePotionConfig;
 
     [SerializeField] private Button makeRecipeButton;
-    [SerializeField] private CauldronMinigame minigamePrefab;
+    [SerializeField] private DrawingMinigame minigamePrefab;
     [SerializeField] private Image potionImage;
     [SerializeField] private Transform minigameParent;
     [SerializeField] private GameObject canvasObject;
@@ -36,8 +36,8 @@ public class PotionRecipeController : MonoBehaviour, IProductReceiver, IProductC
         makeRecipeButton.gameObject.SetActive(false);
         canvasObject.SetActive(false);
 
-        CauldronMinigame minigame = Instantiate(minigamePrefab, minigameParent);
-        minigame.StartMinigame(createdPotion, CompleteRecipe);
+        DrawingMinigame minigame = Instantiate(minigamePrefab, minigameParent);
+        //minigame.StartMinigame(createdPotion, CompleteRecipe);
     }
 
     public void CompleteRecipe()
@@ -68,7 +68,6 @@ public class PotionRecipeController : MonoBehaviour, IProductReceiver, IProductC
     {
         makeRecipeButton.gameObject.SetActive(true);
 
-        Debug.Log($"Received {productData.config.Name}");
         currentIngredientsInPotion.Add(new ProductWithState{config = productData.config as IngredientConfig, state = productData.state});
         return true;
     }

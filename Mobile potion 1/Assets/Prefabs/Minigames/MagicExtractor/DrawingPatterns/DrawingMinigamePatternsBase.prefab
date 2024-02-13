@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 1712350441008238087}
   - component: {fileID: 7840855472939335701}
   m_Layer: 0
-  m_Name: CauldronMinigameDrawingPatternsBase
+  m_Name: DrawingMinigamePatternsBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

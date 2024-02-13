@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class CauldronDrawingPointDetector : MonoBehaviour
+public class DrawingPointDetector : MonoBehaviour
 {
     private Action onCollisionDetected;
     private bool alreadyDetected;

@@ -20,3 +20,4 @@ MonoBehaviour:
   requiredMortarAndPestleStages: 4
   mashedProgressSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   fullyMashedSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  drawingPatternPrefab: {fileID: 7419575165201466270, guid: f2ac77e1a1ed1994f9da6cf58a5075cf, type: 3}

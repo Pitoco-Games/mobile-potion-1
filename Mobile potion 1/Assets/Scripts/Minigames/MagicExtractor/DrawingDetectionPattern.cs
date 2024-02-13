@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CauldronDrawingDetectionPattern : MonoBehaviour
+public class DrawingDetectionPattern : MonoBehaviour
 {
-    [SerializeField] private CauldronDrawingPointDetector[] drawingPoints;
+    [SerializeField] private DrawingPointDetector[] drawingPoints;
     [SerializeField] private float nextPointDistanceThreshold = 1f;
 
     private Action<bool> onStoppedDrawing;

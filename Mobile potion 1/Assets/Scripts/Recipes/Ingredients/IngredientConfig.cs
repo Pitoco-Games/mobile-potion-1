@@ -6,4 +6,5 @@ public class IngredientConfig : ProductConfig
     public int requiredMortarAndPestleStages;
     public Sprite mashedProgressSprite;
     public Sprite fullyMashedSprite;
+    public DrawingDetectionPattern drawingPatternPrefab;
 }
