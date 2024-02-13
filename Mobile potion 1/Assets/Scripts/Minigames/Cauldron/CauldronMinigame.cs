@@ -11,7 +11,6 @@ public class CauldronMinigame : MonoBehaviour
 
     private CauldronDrawingDetectionPattern drawingDetectionPattern;
     private bool canDetectTouch;
-    private List<GameObject> drawnLines = new ();
     private LineDrawer currentLineDrawer;
     private Camera mainCamera;
     private Action onMinigameComplete;
@@ -37,7 +36,6 @@ public class CauldronMinigame : MonoBehaviour
         if (Input.GetButtonDown("Touch"))
         {
             currentLineDrawer = Instantiate(lineDrawerPrefab);
-            drawnLines.Add(currentLineDrawer.gameObject);
         }
 
         if(Input.GetButtonUp("Touch"))
@@ -55,21 +53,25 @@ public class CauldronMinigame : MonoBehaviour
 
     private void OnStoppedDrawing(bool completedDrawing)
     {
-        if(completedDrawing) 
+        drawingDetectionPattern.ResetProgress();
+        currentLineDrawer.EraseLine();
+
+        if (completedDrawing) 
         {
             canDetectTouch = false;
             FinishMinigame();
         }
         else
         {
-            drawingDetectionPattern.ResetProgress();
-            currentLineDrawer.EraseLine();
             currentLineDrawer = null;
         }
     }
 
     private void FinishMinigame()
     {
+        Destroy(drawingDetectionPattern.gameObject);
+        Destroy(currentLineDrawer.gameObject);
+
         onMinigameComplete.Invoke();
         Destroy(gameObject);
     }
